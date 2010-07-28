@@ -64,9 +64,13 @@ module Rots
     def process_immediate_checkid_request
       # TODO: We should enable the user to configure
       # if she wants immediate request support or not
-      url = OpenID::Util.append_args(@openid_request.return_to, 
-        @request.params.merge('openid.mode' => 'setup_needed'))
-      redirect(url)
+      if checkid_request_is_valid?
+        return_successful_openid_response
+      else
+        url = OpenID::Util.append_args(@openid_request.return_to, 
+          @request.params.merge('openid.mode' => 'setup_needed'))
+        redirect(url)
+      end
     end
     
     def process_checkid_request

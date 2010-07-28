@@ -68,6 +68,7 @@ end
 
 opts.parse!(ARGV)
 
+require 'yaml'
 config = YAML.load(server_options[:config])
 
 require "ruby-debug" if server_options[:debugger]
